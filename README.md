@@ -4,6 +4,11 @@
 -db: PostgreSQL(psycopg2/3), Redis
 -other: celery
 
+## APS
+    1. users
+    2. Teams
+    3. Projects
+
 ## MVP
 -Create User model + Auth for them
     --Add JWT Auth
