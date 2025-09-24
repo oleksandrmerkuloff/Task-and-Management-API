@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from teams.models import Team
+
 
 User = get_user_model()
 
@@ -39,37 +41,15 @@ class Project(models.Model):
         on_delete=models.SET_NULL,
         related_name='projects'
         )
-    members = models.ManyToManyField(
-        User,
-        through='ProjectMembership',
+    team = models.ForeignKey(
+        Team,
+        on_delete=models.CASCADE,
         related_name='projects'
     )
 
     class Meta:
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
-
-
-class ProjectMembership(models.Model):
-    member = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-        )
-    project = models.ForeignKey(
-        Project,
-        on_delete=models.CASCADE
-    )
-    date_joined = models.DateTimeField(auto_now_add=True, editable=False)
-    role = models.CharField(
-        max_length=50,
-        choices=[
-            ('member', 'Member')  # create roles for a team
-        ],
-        default='member'
-    )
-
-    class Meta:
-        unique_together = [['member', 'project']]
 
 
 class Task(models.Model):
