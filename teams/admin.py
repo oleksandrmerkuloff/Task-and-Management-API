@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Team, TeamMembership
+from teams.models import Team, TeamMembership
 
 
 class TeamMembershipInline(admin.TabularInline):

@@ -56,7 +56,7 @@ class CustomUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name', 'last_name',]
 
     def __str__(self) -> str:
-        return self.email
+        return self.full_name + ' ' + self.email
 
     def has_perm(self, perm, obj=None) -> bool:
         return True

@@ -91,11 +91,11 @@ class Task(models.Model):
         User,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='tasks'
+        related_name='created_tasks'
     )
     members = models.ManyToManyField(
         User,
-        related_name='tasks'
+        related_name='assigned_tasks'
     )
     project = models.ForeignKey(
         Project,

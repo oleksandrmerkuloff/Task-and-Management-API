@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from models import Project, Task, Comment
+from tasks.models import Project, Task, Comment
 
 
-class TaskInline(admin.TabularInline):
+class TaskInline(admin.StackedInline):
     model = Task
     extra = 1
 
