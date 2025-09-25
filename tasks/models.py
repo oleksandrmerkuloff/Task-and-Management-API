@@ -50,6 +50,13 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
+        ordering = ['deadline', '-created_at']
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f'{self.name} has status {self.status}'
 
 
 class Task(models.Model):
@@ -106,15 +113,10 @@ class Task(models.Model):
     class Meta:
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
+        ordering = ["deadline", "-created_at"]
 
 
 class Comment(models.Model):
-    """Task's comment model
-
-    to add:
-        ordering by created_at
-        implement __str__ and __repr__ with add user info to it
-    """
     content = models.CharField(
         blank=False,
         null=False,
@@ -138,3 +140,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+        ordering = ['-created_at']
+
+    def __str__(self) -> str:
+        return f'Comment created by {self.user.full_name}'
