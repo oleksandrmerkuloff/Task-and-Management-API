@@ -1,16 +1,47 @@
 from rest_framework import generics
+from django.shortcuts import get_object_or_404
 
 from tasks.models import Project, Task, Comment
 from tasks.serializers import ProjectSerializer, TaskSerializer
 from tasks.serializers import CommentSerializer
 
 
-class ProjectsView(generics.ListAPIView):
+class ProjectsListView(generics.ListCreateAPIView):
+    serializer_class = ProjectSerializer
+    queryset = Project.objects.all().order_by('created_at')
+
+    def perform_create(self, serializer):
+        serializer.save(
+            creator=self.request.user,
+            team=self.kwargs['team']
+        )
+
+
+class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
 
 class TasksView(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
+class TasksListView(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        project_id = self.kwargs['pk']
+        return Task.objects.filter(project_id=project_id)
+
+    def perform_create(self, serializer):
+        serializer.save(
+            creator=self.request.user,
+            project_id=self.kwargs['pk']
+        )
+
+
+class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
