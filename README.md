@@ -43,3 +43,28 @@
     --Content
     --User -> Foreign Key
     --Task/Project -> Genereic Foreign Key
+
+## URLS:
+
+    Tasks app:
+        /projects/ - get list of projects, perm - everyone
+        /projects/ - create project, perm - senior +
+        /projects/{id}/ - get a project details
+        /projects/{id}/ - upgrade project
+        /projects/{id}/ - delete project
+    
+        /projects/{id}/tasks - get task list
+        /projects/{id}/tasks - create task
+        /tasks/{id} - get details
+        /tasks/{id} - upgrade task
+        /tasks/{id} - delete task 
+
+        /tasks/{id}/members → list assigned users
+        /tasks/{id}/members → assign user(s) to task
+        /tasks/{id}/members/{user_id} → unassign user
+
+        /tasks/{id}/comments → list comments for task
+        /tasks/{id}/comments → add comment to task
+        /comments/{id} → retrieve single comment
+        /comments/{id} → edit comment
+        /comments/{id} → delete comment
