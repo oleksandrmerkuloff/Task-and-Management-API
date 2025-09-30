@@ -1,5 +1,4 @@
 from rest_framework import generics
-from django.shortcuts import get_object_or_404
 
 from tasks.models import Project, Task, Comment
 from tasks.serializers import ProjectSerializer, TaskSerializer
@@ -22,12 +21,12 @@ class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProjectSerializer
 
 
-class TasksView(generics.ListAPIView):
+class TasksListView(generics.ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
 
-class TasksListView(generics.ListCreateAPIView):
+class ProjectTasksListView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):

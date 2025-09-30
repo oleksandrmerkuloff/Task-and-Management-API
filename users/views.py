@@ -12,3 +12,5 @@ class UsersListView(ListCreateAPIView):
 class UsersDetailView(RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+
+    # add permission only for user with rang senior +

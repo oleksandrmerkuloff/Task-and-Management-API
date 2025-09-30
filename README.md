@@ -68,3 +68,11 @@
         /comments/{id} → retrieve single comment
         /comments/{id} → edit comment
         /comments/{id} → delete comment
+
+
+
+### Teams:
+
+    - List of teams - all teams in list
+    - Teams Detail - using pk shows detail info about team
+    - Teams Detail Membership

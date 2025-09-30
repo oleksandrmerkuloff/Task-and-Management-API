@@ -7,11 +7,13 @@ urlpatterns = [
     path('', v.ProjectsListView.as_view(), name='projects-list'),
     path('<int:pk>', v.ProjectDetailView.as_view(), name='project-detail'),
 
-    path('<int:pk>/tasks', v.TasksListView.as_view(), name='tasks-list'),
+    path(
+        '<int:pk>/tasks',
+        v.ProjectTasksListView.as_view(),
+        name='project-tasks-list'
+        ),
+    path('tasks/', v.TasksListView.as_view(), name='tasks-list'),
     path('tasks/<int:pk>', v.TaskDetailView.as_view(), name='task-detail'),
-    # path('tasks/<int:id>/members', view, name='task-members'),
-    # path('tasks/<int:id>/members/<int:user_id>', view, name='remove-member'),
-
     path(
         'tasks/<int:task_id>/comments',
         v.CommentsListView.as_view(),
