@@ -75,4 +75,7 @@
 
     - List of teams - all teams in list
     - Teams Detail - using pk shows detail info about team
-    - Teams Detail Membership
+    - Teams Detail Membershipear
+
+
+### Rewrite this api for our TEAM!!!

@@ -1,5 +1,6 @@
-from rest_framework.generics import ListCreateAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAdminUser
 
 
 from teams.models import Team, TeamMembership
@@ -22,6 +23,7 @@ class TeamDetailView(RetrieveUpdateDestroyAPIView):
 
 class TeamMembersView(ListCreateAPIView):
     serializer_class = TeamMembershipSerializer
+    permission_classes = [IsAdminUser,]
 
     def get_queryset(self):
         team_id = self.kwargs['pk']

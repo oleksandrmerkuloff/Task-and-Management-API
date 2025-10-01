@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
 
 from tasks.models import Project, Task, Comment
 from tasks.serializers import ProjectSerializer, TaskSerializer
@@ -19,6 +20,7 @@ class ProjectsListView(generics.ListCreateAPIView):
 class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = [IsAdminUser]
 
 
 class TasksListView(generics.ListAPIView):
@@ -28,6 +30,7 @@ class TasksListView(generics.ListAPIView):
 
 class ProjectTasksListView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
+    permission_classes = [IsAdminUser,]
 
     def get_queryset(self):
         project_id = self.kwargs['pk']
@@ -43,6 +46,7 @@ class ProjectTasksListView(generics.ListCreateAPIView):
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = [IsAdminUser,]
 
 
 class CommentsListView(generics.ListCreateAPIView):
