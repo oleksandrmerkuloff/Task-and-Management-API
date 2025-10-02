@@ -38,5 +38,5 @@ urlpatterns = [
         ),
     path('users/', include('users.urls')),
     path('teams/', include('teams.urls')),
-    path('projects/', include('tasks.urls'))
+    path('projects/', include('projects.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
