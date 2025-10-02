@@ -1,11 +1,17 @@
 from django.contrib import admin
 
-from teams.models import Team, TeamMembership
+from teams.models import Team, TeamMembership, Position
 
 
 class TeamMembershipInline(admin.TabularInline):
     model = TeamMembership
     extra = 1
+
+
+class PositionAdmin(admin.ModelAdmin):
+    fields = ['name',]
+    list_display = ['name', ]
+    list_display_links = ['name', ]
 
 
 class TeamMembershipAdmin(admin.ModelAdmin):
@@ -23,5 +29,6 @@ class TeamAdmin(admin.ModelAdmin):
     inlines = [TeamMembershipInline]
 
 
+admin.site.register(Position, PositionAdmin)
 admin.site.register(TeamMembership, TeamMembershipAdmin)
 admin.site.register(Team, TeamAdmin)

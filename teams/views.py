@@ -1,39 +1,34 @@
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAdminUser
-
+from rest_framework import generics
 
 from teams.models import Team, TeamMembership
 from teams.serializers import TeamsSerializer, TeamMembershipSerializer
-from teams.serializers import TeamMembershipCreateSerializer
 
 
-class TeamsListView(ListCreateAPIView):
+class TeamsListView(generics.ListCreateAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamsSerializer
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(leader=self.request.user)
 
 
-class TeamDetailView(RetrieveUpdateDestroyAPIView):
+class TeamDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamsSerializer
 
 
-class TeamMembersView(ListCreateAPIView):
+class TeamMembersView(generics.ListCreateAPIView):
     serializer_class = TeamMembershipSerializer
-    permission_classes = [IsAdminUser,]
 
     def get_queryset(self):
-        team_id = self.kwargs['pk']
+        team_id = self.kwargs['team_id']
         return TeamMembership.objects.filter(team_id=team_id)
 
-    def get_serializer_class(self):
-        if self.request.method == "POST":
-            return TeamMembershipCreateSerializer
-        return TeamMembershipSerializer
-
     def perform_create(self, serializer):
-        team_id = self.kwargs['pk']
+        team_id = self.kwargs['team_id']
         serializer.save(team_id=team_id)
+
+
+class TeamMemberDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TeamMembership.objects.all()
+    serializer_class = TeamMembership
