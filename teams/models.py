@@ -32,12 +32,12 @@ class Team(models.Model):
     leader = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='teams'
+        related_name='owned_teams'
     )
     members = models.ManyToManyField(
         User,
         through='TeamMembership',
-        related_name='teams'
+        related_name='member_teams'
     )
 
     class Meta:

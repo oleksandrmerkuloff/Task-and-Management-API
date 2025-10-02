@@ -15,17 +15,17 @@ class PositionAdmin(admin.ModelAdmin):
 
 
 class TeamMembershipAdmin(admin.ModelAdmin):
-    fields = ['member', 'team', 'role']
-    list_display = ['member', 'team', 'role']
+    fields = ['member', 'team', 'position', 'experience']
+    list_display = ['member', 'team', 'position']
     list_display_links = ['member', 'team']
-    list_filter = ['team', 'role']
+    list_filter = ['team', 'position', 'experience']
 
 
 class TeamAdmin(admin.ModelAdmin):
-    fields = ['name', 'description', 'logo', 'owner']
-    list_display = ['name', 'owner', 'created_at']
-    list_display_links = ['name', 'owner']
-    list_filter = ['created_at', 'owner']
+    fields = ['name', 'leader']
+    list_display = ['name', 'leader', 'created_at']
+    list_display_links = ['name', 'leader']
+    list_filter = ['created_at', 'leader']
     inlines = [TeamMembershipInline]
 
 
