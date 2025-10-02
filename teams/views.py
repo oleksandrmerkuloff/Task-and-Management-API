@@ -2,11 +2,13 @@ from rest_framework import generics
 
 from teams.models import Team, TeamMembership
 from teams.serializers import TeamsSerializer, TeamMembershipSerializer
+from teams.permissions import TeamPermission, MembershipPermission
 
 
 class TeamsListView(generics.ListCreateAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamsSerializer
+    permission_classes = [TeamPermission]
 
     def perform_create(self, serializer):
         serializer.save(leader=self.request.user)
@@ -15,10 +17,12 @@ class TeamsListView(generics.ListCreateAPIView):
 class TeamDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamsSerializer
+    permission_classes = [TeamPermission]
 
 
 class TeamMembersView(generics.ListCreateAPIView):
     serializer_class = TeamMembershipSerializer
+    permission_classes = [MembershipPermission]
 
     def get_queryset(self):
         team_id = self.kwargs['team_id']
@@ -32,3 +36,4 @@ class TeamMembersView(generics.ListCreateAPIView):
 class TeamMemberDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TeamMembership.objects.all()
     serializer_class = TeamMembership
+    permission_classes = [MembershipPermission]
