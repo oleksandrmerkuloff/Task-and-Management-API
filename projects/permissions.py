@@ -34,7 +34,7 @@ class TaskPermission(BasePermission):
         if request.user.is_staff:
             return True
 
-        if view.action == 'create' or view.action == 'list':
+        if request.method == 'POST' or request.method == 'GET':
             project_id = request.data.get('project')
             if project_id is None:
                 return False

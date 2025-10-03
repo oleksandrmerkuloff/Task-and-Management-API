@@ -11,16 +11,17 @@ class ProjectsListView(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [ProjectPermission]
 
-    def perform_create(self, serializer):
-        serializer.save(
-            team=self.kwargs['team']
-        )
+    # def perform_create(self, serializer):
+    #     serializer.save(
+    #         team=self.kwargs['team']
+    #     )
 
 
 class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [ProjectPermission]
+    lookup_url_kwarg = 'project_id'
 
 
 class TasksListView(generics.ListCreateAPIView):
@@ -29,8 +30,9 @@ class TasksListView(generics.ListCreateAPIView):
     permission_classes = [TaskPermission]
 
     def perform_create(self, serializer):
+        project = Project.objects.get(id=self.kwargs['project_id'])
         serializer.save(
-            project=self.kwargs['project']
+            project=project
         )
 
 
