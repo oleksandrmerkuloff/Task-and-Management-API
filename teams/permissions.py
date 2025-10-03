@@ -5,13 +5,9 @@ from teams.models import Team
 
 class TeamPermission(BasePermission):
     def has_permission(self, request, view):
-        if request.user.is_staff:
-            return True
-
-        if request.method in SAFE_METHODS:
-            return request.user.is_authenticated
-
-        return False
+        if request.method == 'POST':
+            return request.user.is_staff
+        return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_staff or request.user == obj.leader:

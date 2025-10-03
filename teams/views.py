@@ -18,6 +18,7 @@ class TeamDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamsSerializer
     permission_classes = [TeamPermission]
+    lookup_url_kwarg = 'team_id'
 
 
 class TeamMembersView(generics.ListCreateAPIView):
